@@ -13505,6 +13505,47 @@ function _ipAdresimiAl() {
   }));
   return _ipAdresimiAl.apply(this, arguments);
 }
+function geoOlustur(bilgiler) {
+  var kutu = document.createElement("div");
+  kutu.classList.add("card");
+  var imgOlustur = document.createElement("img");
+  imgOlustur.setAttribute("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2000px-Flag_of_Turkey.svg.png");
+  var cardBilgi = document.createElement("div");
+  cardBilgi.classList.add("card-info");
+  var ipAdresi = document.createElement("h3");
+  ipAdresi.classList.add("ip");
+  ipAdresi.textContent = bilgiler.sorgu;
+  var paragrafUlke = document.createElement("p");
+  paragrafUlke.classList.add("ulke");
+  paragrafUlke.textContent = "".concat(bilgiler.ülke, " (").concat(bilgiler.ülkeKodu, ")");
+  var paragrafEnlem = document.createElement("p");
+  paragrafEnlem.textContent = "Enlem:".concat(bilgiler.enlem, " Boylam: ").concat(bilgiler.boylam);
+  var paragrafSehir = document.createElement("p");
+  paragrafSehir.textContent = bilgiler.şehir;
+  var paragrafSaat = document.createElement("p");
+  paragrafSaat.textContent = bilgiler.saatdilimi;
+  var paragrafPara = document.createElement("p");
+  paragrafPara.textContent = bilgiler.parabirimi;
+  var paragrafIsp = document.createElement("p");
+  paragrafIsp.textContent = bilgiler.isp;
+  kutu.appendChild(imgOlustur);
+  kutu.appendChild(cardBilgi);
+  cardBilgi.appendChild(ipAdresi);
+  cardBilgi.appendChild(paragrafUlke);
+  cardBilgi.appendChild(paragrafEnlem);
+  cardBilgi.appendChild(paragrafSehir);
+  cardBilgi.appendChild(paragrafSaat);
+  cardBilgi.appendChild(paragrafPara);
+  cardBilgi.appendChild(paragrafIsp);
+  return kutu;
+}
+var cardsBolumu = document.querySelector(".cards");
+_axios.default.get("https://apis.ergineer.com/ipgeoapi/78.171.155.168").then(function (response) {
+  cardsBolumu.appendChild(geoOlustur(response.data));
+  console.log(response);
+}).catch(function (error) {
+  console.log("Error:" + error);
+});
 },{"axios":"node_modules/axios/index.js","babel-core/register":"node_modules/babel-core/register.js","babel-polyfill":"node_modules/babel-polyfill/lib/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

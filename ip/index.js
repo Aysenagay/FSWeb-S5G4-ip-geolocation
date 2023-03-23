@@ -67,3 +67,60 @@ async function ipAdresimiAl() {
 */
 
 //kodlar buraya gelecek
+function geoOlustur(bilgiler) {
+  const kutu = document.createElement("div");
+  kutu.classList.add("card");
+
+  const imgOlustur = document.createElement("img");
+  imgOlustur.setAttribute(
+    "src",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2000px-Flag_of_Turkey.svg.png"
+  );
+
+  const cardBilgi = document.createElement("div");
+  cardBilgi.classList.add("card-info");
+
+  const ipAdresi = document.createElement("h3");
+  ipAdresi.classList.add("ip");
+  ipAdresi.textContent = bilgiler.sorgu;
+
+  const paragrafUlke = document.createElement("p");
+  paragrafUlke.classList.add("ulke");
+  paragrafUlke.textContent = `${bilgiler.ülke} (${bilgiler.ülkeKodu})`;
+
+  const paragrafEnlem = document.createElement("p");
+  paragrafEnlem.textContent = `Enlem:${bilgiler.enlem} Boylam: ${bilgiler.boylam}`;
+
+  const paragrafSehir = document.createElement("p");
+  paragrafSehir.textContent = bilgiler.şehir;
+
+  const paragrafSaat = document.createElement("p");
+  paragrafSaat.textContent = bilgiler.saatdilimi;
+
+  const paragrafPara = document.createElement("p");
+  paragrafPara.textContent = bilgiler.parabirimi;
+
+  const paragrafIsp = document.createElement("p");
+  paragrafIsp.textContent = bilgiler.isp;
+
+  kutu.appendChild(imgOlustur);
+  kutu.appendChild(cardBilgi);
+  cardBilgi.appendChild(ipAdresi);
+  cardBilgi.appendChild(paragrafUlke);
+  cardBilgi.appendChild(paragrafEnlem);
+  cardBilgi.appendChild(paragrafSehir);
+  cardBilgi.appendChild(paragrafSaat);
+  cardBilgi.appendChild(paragrafPara);
+  cardBilgi.appendChild(paragrafIsp);
+  return kutu;
+}
+const cardsBolumu = document.querySelector(".cards");
+axios
+  .get("https://apis.ergineer.com/ipgeoapi/78.171.155.168")
+  .then((response) => {
+    cardsBolumu.appendChild(geoOlustur(response.data));
+    console.log(response);
+  })
+  .catch((error) => {
+    console.log("Error:" + error);
+  });
